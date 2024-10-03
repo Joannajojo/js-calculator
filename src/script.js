@@ -1,7 +1,8 @@
 const { useState } = React; // Import useState from React
 
-
+//Component to handle buttons
 const Button = ({ updateValue, handleResult, clear }) => {
+  //layout for buttons
   return (
       <div id="buttons">
             <button id="clear" value="" onClick={clear}> AC</button>
@@ -34,6 +35,7 @@ const Button = ({ updateValue, handleResult, clear }) => {
   );
 }
 
+//Component for Display
 const Display = ({expression, result}) => {
   return (
     <div id="display">
@@ -43,19 +45,24 @@ const Display = ({expression, result}) => {
   );
 }
 
+//Main component
 const App = () => {
  
-  const [expression, setExpression] = useState(""); // For the expression
-  const [result, setResult] = useState(0); // For the result
+  //States
+  //To store input
+  const [expression, setExpression] = useState(""); 
   
+  //To store result
+  const [result, setResult] = useState(0); 
+  
+  //Handle event when input clicking a button
   const updateValue = (value) => 
   {
-    
-    
+    // If the expression is empty or the last char is not a decimal, avoid multiple leading zeros
     if (value === '0') 
     {
       const lastChar = expression.slice(-1);
-      // If the expression is empty or the last char is not a decimal, avoid multiple leading zeros
+      
       if (expression === "0") {
         return; // Don't allow "00"
       }
@@ -82,16 +89,17 @@ const App = () => {
     }
     
     
-    
      if (value === ".") 
      {
+       // Add "0." if starting with a decimal after an operator
         if (expression === "" || expression.endsWith("+") || expression.endsWith("-") || expression.endsWith("/") || expression.endsWith("x")) 
         {
-          setExpression((prev) => prev + "0."); // Add "0." if starting with a decimal after an operator
+          setExpression((prev) => prev + "0."); 
         } 
+       // Allow only one decimal per number
        else if (!expression.split(/[-+x/]/).pop().includes(".")) 
        {
-         setExpression((prev) => prev + ".");  // Allow only one decimal per number
+         setExpression((prev) => prev + ".");  
         }
       return;
      }
@@ -112,16 +120,17 @@ const App = () => {
     setExpression((prev) => prev + value);
  }
   
-  
+  //Handle results when user clicks '='
   const handleResult= () => 
   {
      if (expression === "") return; 
      try 
      {
-      // Replace 'x' with '*'
-       
+      // Replace 'x' with '*'  
       const sanitizedExpression = expression.replace(/x/g, '*');
+       //Perform calculation
       let evalResult = eval(sanitizedExpression);
+       //Keep result rounded to 4 dec places
       evalResult = parseFloat(evalResult.toFixed(4));
       setResult(evalResult); 
       setExpression((prev) => prev + " = " + evalResult.toString());
@@ -132,9 +141,10 @@ const App = () => {
     }
   }
 
+  //Clear results when user press 'AC'
   const clear = () => {
-    setExpression("");  // Clear expression
-    setResult(0);       // Reset result to 0
+    setExpression("");  
+    setResult(0);       
   }
   
 

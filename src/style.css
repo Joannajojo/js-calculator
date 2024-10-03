@@ -2,6 +2,7 @@
   background-color:rgba(202, 230, 227);
 }
 
+/*Center the calculator, fix calculator dimensions and style*/
 #calculator-body{
   margin:40px auto;
   width:40%;
@@ -12,16 +13,20 @@
   height:420px;
 }
 
+/*Add margin around item, and text to white color*/
 #buttons, #display{
   margin:10px;
   color:white;
 }
+
+/* 5 equal rows and 4 equal columns*/
 #buttons{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr); /* 5 equal rows */*/
+  grid-template-rows: repeat(5, 1fr); 
 }
 
+/*Add marginand set width and padding for each button */
 button{
   width:auto;
   margin:1px;
@@ -49,15 +54,18 @@ button{
   background-color:rgba(235, 113, 52);
 }
 
+/*Span the AC and 0 button to 2 columns*/
 #clear, #zero{
   grid-column: span 2;
 }
 
+/* Place the equal button in the 4th column and span from 4th to 6th grid line*/
 #equals{
   grid-row: 4/6;
-  grid-column: 4;  /* Place the equal button in the 4th column */
+  grid-column: 4;  
 }
 
+/*Darken the button whenever hover*/
 button:hover{
   filter: brightness(0.8);
 }
